@@ -17,7 +17,19 @@ div[class*="viewerBadge"] {display: none !important;}
 a[href*="streamlit.io"] {display: none !important;}
 </style>
 """
-st.markdown(hide_streamlit_style, unsafe_allow_html=True)
+st.markdown(
+    """
+    <style>
+    .stApp {
+        background-image: url("MET_TON_LIEN_IMAGE_ICI");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
 
 st.image(
     "https://images.unsplash.com/photo-1603712725038-e9334ae8f39f?q=80&w=1471&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D",
