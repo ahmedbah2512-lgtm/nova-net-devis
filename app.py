@@ -20,11 +20,23 @@ a[href*="streamlit.io"] {display: none !important;}
 st.markdown(
     """
     <style>
+    /* 1. Applique l'image de fond sur toute l'application */
     .stApp {
-        background-image: url("https://unsplash.com/fr/photos/photographie-de-vue-aerienne-de-la-ville-pdWc5wm1STw");
+        background-image: url("MET_TON_LIEN_IMAGE_ICI");
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
+    }
+
+    /* 2. Rend les conteneurs et blocs semi-transparents pour voir l'image à travers */
+    .stApp > header {
+        background-color: transparent !important;
+    }
+    
+    div.stBlock, div.stVerticalBlock > div, .stForm {
+        background-color: rgba(255, 255, 255, 0.85) !important; /* Fond blanc semi-transparent */
+        border-radius: 10px;
+        padding: 20px;
     }
     </style>
     """,
