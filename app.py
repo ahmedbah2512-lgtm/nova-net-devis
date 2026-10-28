@@ -116,7 +116,7 @@ with st.form("formulaire_devis_nova_net"):
       st.error("Veuillez remplir tous les champs obligatoires (*).")
     else:
       # METS TON URL GOOGLE APPS SCRIPT ICI :
-      URL_GOOGLE_SCRIPT = "MET_TON_URL_GOOGLE_APPS_SCRIPT_ICI"
+      URL_GOOGLE_SCRIPT = "https://script.google.com/macros/s/AKfycbw1nyVx0Ihou3pb3gb2HMUPn9_hj9yvrk__sPyFx_VRvHWvGdmfeKXVhaw_PhU-yiBdvA/exec"
 
       donnees = {
           "nom": nom_client,
