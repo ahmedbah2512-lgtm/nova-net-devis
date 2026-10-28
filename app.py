@@ -21,7 +21,7 @@ st.markdown(
     """
     <style>
     .stApp {
-        background-image: url("MET_TON_LIEN_IMAGE_ICI");
+        background-image: url("https://unsplash.com/fr/photos/photographie-de-vue-aerienne-de-la-ville-pdWc5wm1STw");
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
