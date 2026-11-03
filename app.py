@@ -65,20 +65,25 @@ passages = st.slider(
     "Nombre de passages par semaine :", min_value=1, max_value=7, value=3
 )
 
+# --- PARAMÈTRES (à ajuster) ---
+TARIF_HORAIRE_HT = 31.0       # prix de vente de l'heure (coût réel estimé ~21 €/h)
+M2_PAR_HEURE = 150.0          # cadence : m² nettoyés par heure
+TEMPS_FIXE_PASSAGE = 0.5      # h par passage : sanitaires, poubelles, trajet
+FRAIS_FIXES_MENSUELS = 40.0   # produits, gestion, assurance
+PLANCHER_PAR_PASSAGE = 35.0   # prix minimum par passage
+
 # --- FORMULE DE CALCUL TARIF ---
-frais_fixes = 120.0
-base_surface = surface * 1.3
-multiplicateur_frequence = passages**1.25 + (passages * 0.4)
-tarif_brut = frais_fixes + (base_surface * multiplicateur_frequence)
+semaines_par_mois = 52 / 12
+# plus de passages = locaux moins sales = nettoyage plus rapide (jusqu'à -12 %)
+facteur_freq = max(0.88, 1 - 0.02 * (passages - 1))
+heures_par_passage = (TEMPS_FIXE_PASSAGE + surface / M2_PAR_HEURE) * facteur_freq
+heures_mois = heures_par_passage * passages * semaines_par_mois
 
-# Plancher dynamique
-if surface <= 40:
-  tarif_minimum = 280.0
-else:
-  tarif_minimum = 280.0 + ((surface - 40) * 3.5)
+tarif_brut = FRAIS_FIXES_MENSUELS + heures_mois * TARIF_HORAIRE_HT
+tarif_minimum = PLANCHER_PAR_PASSAGE * passages * semaines_par_mois
 
-tarif_mensuel = max(tarif_minimum, tarif_brut)
-tarif_mensuel_ttc = tarif_mensuel * 1.20
+tarif_mensuel = round(max(tarif_minimum, tarif_brut), 2)
+tarif_mensuel_ttc = round(tarif_mensuel * 1.20, 2)
 
 # --- AFFICHAGE DU RÉSULTAT CLIENT ---
 st.divider()
