@@ -142,3 +142,6 @@ with st.form("formulaire_devis_nova_net"):
                 if reponse.status_code == 200:
                     st.success("✅ Merci ! Votre demande a bien été transmise à Nova Net. Nous vous recontactons très rapidement.")
                 else:
+                    st.error("❌ Une erreur est survenue lors de l'envoi. Veuillez réessayer.")
+            except Exception as e:
+                st.error(f"❌ Erreur technique de connexion : {e}")
