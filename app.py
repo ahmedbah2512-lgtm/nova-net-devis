@@ -6,7 +6,7 @@ st.set_page_config(
     page_title="Devis Instantané - Nova Net", page_icon="✨", layout="centered"
 )
 
-# Masquer la barre d'outils et le pied de page Streamlit + Intégration du background global
+# --- STYLE CSS & FOND DÉCORATIF ---
 hide_streamlit_style = """
 <style>
 #MainMenu {visibility: hidden;}
@@ -30,16 +30,15 @@ a[href*="streamlit.io"] {display: none !important;}
     background-color: transparent !important;
 }
 
-/* 2. On applique le fond semi-transparent UNIQUEMENT sur le formulaire de devis */
+/* 2. Suppression du fond blanc du formulaire pour laisser place nette sur l'image */
 .stForm {
-    background-color: rgba(255, 255, 255, 0.92) !important;
-    border-radius: 12px;
-    padding: 25px;
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+    background-color: transparent !important;
+    border: none !important;
+    padding: 0px;
 }
 
-/* 3. Harmonisation des textes principaux pour qu'ils ressortent bien sur fond sombre */
-h1, h2, h3, p, label {
+/* 3. Harmonisation de tous les textes en blanc pour qu'ils ressortent parfaitement */
+h1, h2, h3, p, label, span {
     color: #ffffff !important;
 }
 </style>
@@ -69,15 +68,14 @@ passages = st.slider(
 )
 
 # --- PARAMÈTRES (à ajuster) ---
-TARIF_HORAIRE_HT = 31.0  # prix de vente de l'heure (coût réel estimé ~21 €/h)
+TARIF_HORAIRE_HT = 31.0  # prix de vente de l'heure
 M2_PAR_HEURE = 150.0  # cadence : m² nettoyés par heure
-TEMPS_FIXE_PASSAGE = 0.5  # h par passage : sanitaires, poubelles, trajet
+TEMPS_FIXE_PASSAGE = 0.5  # h par passage
 FRAIS_FIXES_MENSUELS = 40.0  # produits, gestion, assurance
 PLANCHER_PAR_PASSAGE = 35.0  # prix minimum par passage
 
 # --- FORMULE DE CALCUL TARIF ---
 semaines_par_mois = 52 / 12
-# plus de passages = locaux moins sales = nettoyage plus rapide (jusqu'à -12 %)
 facteur_freq = max(0.88, 1 - 0.02 * (passages - 1))
 heures_par_passage = (TEMPS_FIXE_PASSAGE + surface / M2_PAR_HEURE) * facteur_freq
 heures_mois = heures_par_passage * passages * semaines_par_mois
@@ -147,7 +145,6 @@ with st.form("formulaire_devis_nova_net"):
     if not nom_client or not tel_client or not email_client or not ville_chantier:
       st.error("Veuillez remplir tous les champs obligatoires (*).")
     else:
-      # METS TON URL GOOGLE APPS SCRIPT ICI :
       URL_GOOGLE_SCRIPT = "https://script.google.com/macros/s/AKfycbw1nyVx0Ihou3pb3gb2HMUPn9_hj9yvrk__sPyFx_VRvHWvGdmfeKXVhaw_PhU-yiBdvA/exec"
 
       donnees = {
