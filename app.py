@@ -22,19 +22,19 @@ st.markdown(
     <style>
     /* 1. Applique l'image de fond sur toute l'application */
     .stApp {
-        background-image: url("MET_TON_LIEN_IMAGE_ICI");
+        background-image: url("https://images.unsplash.com/photo-1603712725038-e9334ae8f39f?q=80&w=1471&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D");
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
     }
 
-    /* 2. Rend les conteneurs et blocs semi-transparents pour voir l'image à travers */
     .stApp > header {
         background-color: transparent !important;
     }
     
-    div.stBlock, div.stVerticalBlock > div, .stForm {
-        background-color: rgba(255, 255, 255, 0.85) !important; /* Fond blanc semi-transparent */
+    /* 2. On applique le fond semi-transparent UNIQUEMENT sur le formulaire de devis */
+    .stForm {
+        background-color: rgba(255, 255, 255, 0.90) !important;
         border-radius: 10px;
         padding: 20px;
     }
