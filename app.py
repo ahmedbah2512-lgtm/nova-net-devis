@@ -6,7 +6,7 @@ st.set_page_config(
     page_title="Devis Instantané - Nova Net", page_icon="✨", layout="centered"
 )
 
-# --- STYLE CSS & FOND DÉCORATIF ---
+# --- STYLE CSS : FOND NOIR UNI ---
 hide_streamlit_style = """
 <style>
 #MainMenu {visibility: hidden;}
@@ -16,28 +16,23 @@ footer {visibility: hidden;}
 div[class*="viewerBadge"] {display: none !important;}
 a[href*="streamlit.io"] {display: none !important;}
 
-/* 1. Applique l'image en fond d'écran global fixe et couvrant avec un voile sombre */
+/* 1. Fond noir uni sur toute l'application */
 .stApp {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
-                      url("https://images.unsplash.com/photo-1603712725038-e9334ae8f39f?q=80&w=1471&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
+    background-color: #0e1117 !important;
 }
 
 .stApp > header {
     background-color: transparent !important;
 }
 
-/* 2. Suppression du fond blanc du formulaire pour laisser place nette sur l'image */
+/* 2. Suppression de tout fond blanc sur le formulaire */
 .stForm {
     background-color: transparent !important;
     border: none !important;
     padding: 0px;
 }
 
-/* 3. Harmonisation de tous les textes en blanc pour qu'ils ressortent parfaitement */
+/* 3. Tous les textes en blanc pour un contraste parfait sur fond noir */
 h1, h2, h3, p, label, span {
     color: #ffffff !important;
 }
@@ -45,10 +40,6 @@ h1, h2, h3, p, label, span {
 """
 st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 
-st.image(
-    "https://images.unsplash.com/photo-1603712725038-e9334ae8f39f?q=80&w=1471&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D",
-    use_container_width=True,
-)
 st.title("NOVA NET - Simulation & Devis")
 st.write(
     "Obtenez une estimation instantanée pour l'entretien de vos locaux"
@@ -68,11 +59,11 @@ passages = st.slider(
 )
 
 # --- PARAMÈTRES (à ajuster) ---
-TARIF_HORAIRE_HT = 31.0  # prix de vente de l'heure
-M2_PAR_HEURE = 150.0  # cadence : m² nettoyés par heure
-TEMPS_FIXE_PASSAGE = 0.5  # h par passage
-FRAIS_FIXES_MENSUELS = 40.0  # produits, gestion, assurance
-PLANCHER_PAR_PASSAGE = 35.0  # prix minimum par passage
+TARIF_HORAIRE_HT = 31.0
+M2_PAR_HEURE = 150.0
+TEMPS_FIXE_PASSAGE = 0.5
+FRAIS_FIXES_MENSUELS = 40.0
+PLANCHER_PAR_PASSAGE = 35.0
 
 # --- FORMULE DE CALCUL TARIF ---
 semaines_par_mois = 52 / 12
