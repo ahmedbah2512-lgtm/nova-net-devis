@@ -6,7 +6,7 @@ st.set_page_config(
     page_title="Devis Instantané - Nova Net", page_icon="✨", layout="centered"
 )
 
-# Masquer la barre d'outils et le pied de page Streamlit
+# Masquer la barre d'outils et le pied de page Streamlit + Intégration du background global
 hide_streamlit_style = """
 <style>
 #MainMenu {visibility: hidden;}
@@ -15,33 +15,36 @@ footer {visibility: hidden;}
 .stAppToolbar {visibility: hidden;}
 div[class*="viewerBadge"] {display: none !important;}
 a[href*="streamlit.io"] {display: none !important;}
+
+/* 1. Applique l'image en fond d'écran global fixe et couvrant avec un voile sombre */
+.stApp {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
+                      url("https://images.unsplash.com/photo-1603712725038-e9334ae8f39f?q=80&w=1471&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+.stApp > header {
+    background-color: transparent !important;
+}
+
+/* 2. On applique le fond semi-transparent UNIQUEMENT sur le formulaire de devis */
+.stForm {
+    background-color: rgba(255, 255, 255, 0.92) !important;
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+}
+
+/* 3. Harmonisation des textes principaux pour qu'ils ressortent bien sur fond sombre */
+h1, h2, h3, p, label {
+    color: #ffffff !important;
+}
 </style>
 """
-st.markdown(
-    """
-    <style>
-    /* 1. Applique l'image de fond sur toute l'application */
-    .stApp {
-        background-image: url("https://images.unsplash.com/photo-1603712725038-e9334ae8f39f?q=80&w=1471&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D");
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-    }
-
-    .stApp > header {
-        background-color: transparent !important;
-    }
-    
-    /* 2. On applique le fond semi-transparent UNIQUEMENT sur le formulaire de devis */
-    .stForm {
-        background-color: rgba(255, 255, 255, 0.90) !important;
-        border-radius: 10px;
-        padding: 20px;
-    }
-    </style>
-    """,
-    unsafe_allow_html=True,
-)
+st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 
 st.image(
     "https://images.unsplash.com/photo-1603712725038-e9334ae8f39f?q=80&w=1471&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D",
@@ -66,11 +69,11 @@ passages = st.slider(
 )
 
 # --- PARAMÈTRES (à ajuster) ---
-TARIF_HORAIRE_HT = 31.0       # prix de vente de l'heure (coût réel estimé ~21 €/h)
-M2_PAR_HEURE = 150.0          # cadence : m² nettoyés par heure
-TEMPS_FIXE_PASSAGE = 0.5      # h par passage : sanitaires, poubelles, trajet
-FRAIS_FIXES_MENSUELS = 40.0   # produits, gestion, assurance
-PLANCHER_PAR_PASSAGE = 35.0   # prix minimum par passage
+TARIF_HORAIRE_HT = 31.0  # prix de vente de l'heure (coût réel estimé ~21 €/h)
+M2_PAR_HEURE = 150.0  # cadence : m² nettoyés par heure
+TEMPS_FIXE_PASSAGE = 0.5  # h par passage : sanitaires, poubelles, trajet
+FRAIS_FIXES_MENSUELS = 40.0  # produits, gestion, assurance
+PLANCHER_PAR_PASSAGE = 35.0  # prix minimum par passage
 
 # --- FORMULE DE CALCUL TARIF ---
 semaines_par_mois = 52 / 12
